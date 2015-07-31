@@ -770,13 +770,13 @@ do
             if msgLenValue <= 0 then
             -- Invalid message length.
                 msgSubtree = voltTree:add( f_msg, msgLen )
-                msgSubtree:set_text( "Message " .. msgCount .. ": Negative or zero message length (" .. msgLenValue .. " bytes)" )
+                msgSubtree:set_text( "Message " .. msgCount .. ": Negative or zero message length (claimed to be " .. msgLenValue .. " bytes)" )
                 hasException = true
                 return
             else -- msgLenValue > 0
                 if not checkBuffer(bufLen, offset, msgLenValue + 4) then -- Insufficient buffer space
                     msgSubtree = voltTree:add( f_msg, msgLen )
-                    msgSubtree:set_text( "Message " .. msgCount .. ": Message length exceeded buffer length (" .. msgLenValue .. " bytes)" )
+                    msgSubtree:set_text( "Message " .. msgCount .. ": Message length exceeded buffer length (claimed to be " .. msgLenValue .. " bytes)" )
                     hasException = true
                     return
                 else
