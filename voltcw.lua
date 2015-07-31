@@ -323,13 +323,17 @@ do
         for i = 1, i_metaColCount do
             columnNames[i] = {}
             offset, columnNames[i][0], columnNames[i][1] = nextLengthPrecededValue( buf, offset )
-            if columnNames[i][1] == nil then return end
+            -- if columnNames[i][1] == nil then return end
             if VOLT_TYPE[ columnTypes[i]:int() ] == nil then return end
-            local colSubtree = metadataSubtree:add( "Column " .. i .. ": " .. columnNames[i][1]:string() .. " (" .. VOLT_TYPE[ columnTypes[i]:int() ] .. ")")
+            local colSubtree = metadataSubtree:add( "Column " .. i .. ": " .. (columnNames[i][1] == nil and "NULL" or columnNames[i][1]:string()) .. " (" .. VOLT_TYPE[ columnTypes[i]:int() ] .. ")")
             colSubtree:set_generated()
             colSubtree:add( f_colType, columnTypes[i] )
             colSubtree:add( f_varlen, columnNames[i][0] ):set_text( "Name Length: " .. columnNames[i][0]:int() )
-            colSubtree:add( f_str, columnNames[i][1] ):set_text( "Column Name: " .. columnNames[i][1]:string() )
+            if columnNames[i][1] == nil then
+                colSubtree:add( "Column Name: NULL" )
+            else
+                colSubtree:add( f_str, columnNames[i][1] ):set_text( "Column Name: " .. columnNames[i][1]:string() )
+            end
         end
         return i_metaColCount, columnTypes
     end
