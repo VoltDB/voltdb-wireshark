@@ -5,7 +5,7 @@ This is a Wireshark plugin (packet dissector) for the VoltDB client wire protoco
 To learn more about the protocol, see the document [here](http://downloads.voltdb.com/documentation/wireprotocol.pdf).
 
 ##Get Started
-* We recommend you to run this plugin on Wireshark 1.12.5 or later.
+* This plugin requires Wireshark **1.12.5** or later.
 * Check Lua availability for your Wireshark. Lua has shipped with the Windows version of Wireshark since 0.99.4. Availability on other platforms varies. To see if your version of Wireshark supports Lua, go to Help→About Wireshark and look for Lua in the "Compiled with" paragraph.
 ![alt text](https://wiki.wireshark.org/Lua?action=AttachFile&do=get&target=lua-about.png "Lua availability")
 (The image is from wireshark wiki)
