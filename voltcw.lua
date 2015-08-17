@@ -204,10 +204,21 @@ do
         if high > 0 then returnValue = returnValue .. high end
         returnValue = returnValue .. low
 
+        local sign = ''
+        if string.sub(returnValue, 1, 1) == '-' then
+            sign = '-'
+            returnValue = string.sub(returnValue, 2)
+        end
         local len = string.len(returnValue)
         if len > 12 then
             returnValue = string.sub(returnValue, 1, len-12) .. "." .. string.sub(returnValue, -12)
+        else
+            for i = 1, 12-len do
+                returnValue = "0" .. returnValue
+            end
+            returnValue = "0." .. returnValue
         end
+        returnValue = sign .. returnValue
         return returnValue
     end
 
