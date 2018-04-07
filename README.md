@@ -1,10 +1,10 @@
-#voltdb-wireshark
+# voltdb-wireshark
 
 This is a Wireshark plugin (packet dissector) for the VoltDB client wire protocol. The VoltDB client wire protocol is used by VoltDB servers and clients to communicate with each other. This plugin will help you understand the content in the packets using this protocol.
 
 To learn more about the protocol, see the document [here](http://downloads.voltdb.com/documentation/wireprotocol.pdf).
 
-##Get Started
+## Get Started
 * This plugin requires Wireshark **1.12.5** or later.
 * Check Lua availability for your Wireshark. Lua has shipped with the Windows version of Wireshark since 0.99.4. Availability on other platforms varies. To see if your version of Wireshark supports Lua, go to Help→About Wireshark and look for Lua in the "Compiled with" paragraph.
 
