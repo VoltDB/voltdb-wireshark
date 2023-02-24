@@ -25,10 +25,10 @@ do
     local p_voltcw = Proto( "VoltCW", "VoltDB Client Wire Protocol" )
 
     -- Definitions for data fields. -------------------------------------------------------------------
-    local f_varLenNode = ProtoField.bytes( "VoltCW.varlennode", "Variable length data node", base.HEX )
+    local f_varLenNode = ProtoField.bytes( "VoltCW.varlennode", "Variable length data node", base.SPACE )
     local f_varlen = ProtoField.int32( "VoltCW.varlen", "Length" )
     local f_str = ProtoField.string( "VoltCW.str", "String" )
-    local f_varbinary = ProtoField.bytes( "VoltCW.varbinary", "VarBinary", base.HEX )
+    local f_varbinary = ProtoField.bytes( "VoltCW.varbinary", "VarBinary", base.SPACE )
     local f_int8 = ProtoField.int8( "VoltCW.int8", "TinyInt Value" )    
     local f_int16 = ProtoField.int16( "VoltCW.int16", "SmallInt Value" )
     local f_int32 = ProtoField.int32( "VoltCW.int32", "Integer Value" )
@@ -56,52 +56,52 @@ do
 
     -- Definitions for the message. -------------------------------------------------------------------
     local f_msgLen = ProtoField.int32( "VoltCW.msglen", "Message Length" )
-    local f_msg = ProtoField.bytes( "VoltCW.msg", "Message", base.HEX )
+    local f_msg = ProtoField.bytes( "VoltCW.msg", "Message", base.SPACE )
     local f_version = ProtoField.int8( "VoltCW.version", "Protocol Version" )
 
     -- Definitions for the Invocation Request fields. -------------------------------------------------
-    local f_clientData = ProtoField.uint64( "VoltCW.reqclidata", "Client Data", base.HEX )
-    local f_params = ProtoField.bytes( "VoltCW.params", "Parameters", base.HEX )
+    local f_clientData = ProtoField.int64( "VoltCW.reqclidata", "Client Data", base.DEC )
+    local f_params = ProtoField.bytes( "VoltCW.params", "Parameters", base.SPACE )
     local f_paramsCount = ProtoField.int16( "VoltCW.paramscount", "Parameter Count" )
     local f_paramType = ProtoField.int8( "VoltCW.paramtype", "Parameter Type", base.DEC, VOLT_TYPE, 0xFF)
     local f_arrayElementCount = ProtoField.int16( "VoltCW.arrayelementcount", "Element Count" )
     local f_arrayType = ProtoField.int8( "VoltCW.arraytype", "Element Type", base.DEC, VOLT_TYPE, 0xFF)
-    local f_param = ProtoField.bytes( "VoltCW.para", "Parameter", base.HEX )
+    local f_param = ProtoField.bytes( "VoltCW.para", "Parameter", base.SPACE )
 
     -- Definitions for the Invocation Response fields. ------------------------------------------------
-    local f_fpresent = ProtoField.uint8( "VoltCW.fpresent", "Fields Present Flags", base.HEX, VALS_BLANK_BYTE, 0xE0 )
+    local f_fpresent = ProtoField.int8( "VoltCW.fpresent", "Fields Present Flags", base.DEC, VALS_BLANK_BYTE, 0xE0 )
     -- bit 6 indicates the presence of a status string
-    local fb_status = ProtoField.uint8( "VoltCW.fbstatus", "Presence of a status string", base.DEC, VALS_BOOL, 0x20 )
+    local fb_status = ProtoField.int8( "VoltCW.fbstatus", "Presence of a status string", base.DEC, VALS_BOOL, 0x20 )
     -- bit 7 indicates the presence of a serializable exception
-    local fb_sException = ProtoField.uint8( "VoltCW.fbsException", "Presence of a serializable exception", base.DEC, VALS_BOOL, 0x40 )
+    local fb_sException = ProtoField.int8( "VoltCW.fbsException", "Presence of a serializable exception", base.DEC, VALS_BOOL, 0x40 )
     -- bit 8 indicates the presence of an app status string
-    local fb_appstatus = ProtoField.uint8( "VoltCW.fbappstatus", "Presence of an app status string", base.DEC, VALS_BOOL, 0x80 )
+    local fb_appstatus = ProtoField.int8( "VoltCW.fbappstatus", "Presence of an app status string", base.DEC, VALS_BOOL, 0x80 )
     local f_statusCode = ProtoField.int8( "VoltCW.statuscode", "Status Code", base.DEC, STATUSCODE, 0xFF )
     local f_appStatus = ProtoField.int8( "VoltCW.appstatus", "Application Status Code" )
     local f_clusterRTT = ProtoField.int32( "VoltCW.clusterrtt", "Cluster Round Trip Time" )
     local f_sExceptionLen = ProtoField.int32( "VoltCW.sexlen", "Serialized Exception Length" )
-    local f_sException = ProtoField.bytes( "VoltCW.sexception", "Serialized Exception", base.HEX )
+    local f_sException = ProtoField.bytes( "VoltCW.sexception", "Serialized Exception", base.SPACE )
     local f_resultCount = ProtoField.int16( "VoltCW.resultcount", "Result Count" )
 
     -- Definitions for VoltTable ----------------------------------------------------------------------
-    local f_tbl = ProtoField.bytes( "VoltCW.tbl", "Result Table", base.HEX )
+    local f_tbl = ProtoField.bytes( "VoltCW.tbl", "Result Table", base.SPACE )
     local f_tblLen = ProtoField.int32( "VoltCW.tbllen", "Table Length" )
-    local f_metadata = ProtoField.bytes( "VoltCW.metadata", "Table Metadata", base.HEX )
+    local f_metadata = ProtoField.bytes( "VoltCW.metadata", "Table Metadata", base.SPACE )
     local f_metadataLen = ProtoField.int32( "VoltCW.metadatalen", "Metadata Length" )
     local f_metaStatus = ProtoField.int8( "VoltCW.metastatus", "Status Code" )
     local f_metaColCount = ProtoField.int16( "VoltCW.metacolcnt", "Column Count" )
     local f_colType = ProtoField.int8( "VoltCW.coltype", "Column Type", base.DEC, VOLT_TYPE, 0xFF )
     local f_rowCount = ProtoField.int32( "VoltCW.rowcount", "Row Count" )
-    local f_rows = ProtoField.bytes( "VoltCW.rows", "Data Rows", base.HEX )
-    local f_row = ProtoField.bytes( "VoltCW.row", "Row", base.HEX )
+    local f_rows = ProtoField.bytes( "VoltCW.rows", "Data Rows", base.SPACE )
+    local f_row = ProtoField.bytes( "VoltCW.row", "Row", base.SPACE )
     local f_rowLen = ProtoField.int32( "VoltCW.rowlen", "Row Length" )
-    local f_col = ProtoField.bytes( "VoltCW.col", "Column", base.HEX )
+    local f_col = ProtoField.bytes( "VoltCW.col", "Column", base.SPACE )
 
     -- Definitions for login request ------------------------------------------------------------------
     local f_hashVersion = ProtoField.int8( "VoltCW.hashver", "Password Hash Version" )
     local f_srv = ProtoField.bytes( "VoltCW.srv", "Service" )
     local f_uname = ProtoField.bytes( "VoltCW.uname", "User Name" )
-    local f_phash = ProtoField.bytes( "VoltCW.phash", "Password Hash", base.HEX )
+    local f_phash = ProtoField.bytes( "VoltCW.phash", "Password Hash", base.SPACE )
 
     -- Definitions for login response -----------------------------------------------------------------
     local f_authResult = ProtoField.int8( "VoltCW.authres", "Authentication Result", base.DEC, AUTHRESult, 0xFF )
@@ -109,7 +109,7 @@ do
     local f_cid = ProtoField.int64( "VoltCW.cid", "Connection ID" )
     local f_cstart = ProtoField.int64( "VoltCW.cstart", "Cluster Start Timestamp" )
     local f_leader_ipv4 = ProtoField.ipv4( "VoltCW.leaderipv4", "Leader IPv4 Address" )
-    local f_bdstring = ProtoField.bytes( "VoltCW.bdstring", "Build String", base.HEX )
+    local f_bdstring = ProtoField.bytes( "VoltCW.bdstring", "Build String", base.SPACE )
 
     -- Register fields. -------------------------------------------------------------------------------
     p_voltcw.fields = {
@@ -659,7 +659,12 @@ do
                 paramTreeNode:set_text( "Parameter " .. i .. " (ARRAY)" )
             else
                 offset, paramType, paramLength, param = nextTypePrecededValue( paramsBuf, offset )
-                local i_paramType = paramType:int()
+                local i_paramType = 1
+                if paramType == nil then -- null
+                   i_paramType = 1
+                else
+                   i_paramType = paramType:int()
+                end
                 if i_paramType == 9 then -- string
                     local paramTreeNode = paramSubtree:add( f_param, paramsBuf( offset-paramLength, paramLength ) )
                     paramTreeNode:add( f_paramType, paramType )
